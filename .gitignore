@@ -1,0 +1,10 @@
+# Cargo
+target
+
+# Environment Variables
+.env*
+!.env.example
+
+# Miscellaneous
+.DS_Store
+*.pem
