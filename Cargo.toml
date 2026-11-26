@@ -5,6 +5,13 @@ edition = "2024"
 repository = "https://github.com/hemanthdugga/task-management-app"
 license = "MIT"
 
+[[bin]]
+name = "task-management-app"
+path = "src/main.rs"
+
+[lib]
+path = "src/lib.rs"
+
 [profile.release]
 codegen-units = 1
 lto = "fat"
@@ -13,4 +20,7 @@ strip = true
 
 [dependencies]
 axum = { version = "0.8.9" }
-tokio = { version = "1.54.1", features = ["full"] }
+tokio = { version = "1.54.1", features = ["macros", "net", "rt-multi-thread"] }
+
+[dev-dependencies]
+tower = { version = "0.5.3", features = ["util"] }

@@ -1,20 +1,11 @@
-use std::env;
-
-use axum::{Router, routing::get, serve};
+use axum::serve;
+use task_management_app::router;
 use tokio::net::TcpListener;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let app = Router::new().route("/", get(index));
-    let port = env::var("PORT").expect("PORT environment variable must be set");
-    let address = format!("0.0.0.0:{port}");
-    let listener = TcpListener::bind(&address)
-        .await
-        .expect("failed to bind to network port address");
-    serve(listener, app).await.expect("failed to start the server");
+async fn main() -> Result<(), std::io::Error> {
+    let app = router();
+    let listener = TcpListener::bind("127.0.0.1:3000").await?;
+    serve(listener, app).await?;
     Ok(())
-}
-
-async fn index() -> &'static str {
-    "Hello, World!"
 }
